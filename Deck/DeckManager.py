@@ -1,3 +1,5 @@
+from enum import nonmember
+
 import pygame
 import random
 from Cards.Card import Suit, Rank, Card
@@ -145,7 +147,16 @@ class DeckManager:
     #   Add each created Card to a list called 'deck' and return the completed list at the end.
     def createDeck(self, subLevel: SubLevel = None):
         cardImages = self.load_card_images(subLevel)
+        ranks = [Rank.TWO, Rank.THREE, Rank.FOUR, Rank.FIVE, Rank.SIX, Rank.SEVEN, Rank.EIGHT, Rank.NINE, Rank.TEN, Rank.JACK, Rank.QUEEN, Rank.KING, Rank.ACE]
+        suits = [Suit.SPADES, Suit.HEARTS, Suit.CLUBS, Suit.DIAMONDS]
         deck = []
+        for suit in suits:
+            for rank in ranks:
+                image = cardImages.get((suit,rank))
+                if image is None:
+                    continue
+                card = Card(suit=suit, rank=rank, image=image)
+                deck.append(card)
         return deck
 
     # TODO (TASK 5.1): Complete the priceMap variable by assigning each joker a price.
