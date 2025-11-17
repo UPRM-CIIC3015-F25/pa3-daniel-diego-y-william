@@ -166,7 +166,7 @@ class DeckManager:
         deckJokers = []
 
         priceMap = {"The Joker": 4,
-                    "Micheal Myers": 6,
+                    "Michael Myers": 6,
                     "Fibonacci": 5,
                     "Gauntlet": 5,
                     "Ogre": 5,
