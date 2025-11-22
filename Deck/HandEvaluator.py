@@ -10,4 +10,69 @@ from Cards.Card import Card, Rank
 #   and flags to determine if the hand is: "Four of a Kind", "Full House", "Flush", "Straight", "Three of a Kind",
 #   "Two Pair", "One Pair", or "High Card". Return a string with the correct hand type at the end.
 def evaluate_hand(hand: list[Card]):
-    return "High Card" # If none of the above, it's High Card
+    #Rank and suits count
+    rank_counts = {}
+    suit_counts = {}
+    for card in hand:
+        rank = card.rank.value
+        suit = card.suit
+        rank_counts[rank] = rank_counts.get(rank, 0) + 1
+        suit_counts[suit] = suit_counts.get(suit, 0) + 1
+    #Sorting ranks
+    counts_sorted = sorted(rank_counts.values(), reverse=True)
+
+    #Hand checking
+    #1:Flush
+    flush_suit = None
+    for suit, count in suit_counts.items():
+        if count >= 5:
+            flush_suit = suit
+            break
+
+    #2:Straight, ace counts as 1, so add one
+
+    unique_ranks = sorted(set(rank_counts.keys()))
+    if 14 in unique_ranks:
+        unique_ranks.append(1)
+    unique_ranks = sorted(unique_ranks)
+    straight = False
+    straight_high = 0
+
+    for i in range(len(unique_ranks)-4):
+        seq = unique_ranks[i:i+5]
+        if seq == list(range(seq[0], seq[0]+5)):
+            straight = True
+            straight_high = seq[-1]
+
+    #3:Straight Flush
+    if flush_suit:
+        flush_cards = [card.rank.value for card in hand if card.suit == flush_suit]
+        #same as straight but with flush
+        unique_flush_ranks = sorted(set(flush_cards))
+
+        if 14 in unique_flush_ranks:
+            unique_flush_ranks.append(1)
+        unique_flush_ranks = sorted(unique_flush_ranks)
+
+        for x in range(len(unique_flush_ranks)-4):
+            seq = unique_flush_ranks[x:x+5]
+            if seq == list(range(seq[0], seq[0]+5)):
+                return "Straight Flush"
+
+#Checking other hand's rank cards
+    if counts_sorted[0]==4:
+        return "Four of a kind"
+    if counts_sorted[0]==3 and counts_sorted[1]==2:
+        return "Full house"
+    if flush_suit:
+        return "Flush"
+    if straight:
+        return "Straight"
+    if counts_sorted[0]==3:
+        return "Three of a kind"
+    if counts_sorted[0]==2 and counts_sorted[1]==2:
+        return "Two pair"
+    if counts_sorted[0]==2:
+        return "One Pair"
+
+    return "High card"
