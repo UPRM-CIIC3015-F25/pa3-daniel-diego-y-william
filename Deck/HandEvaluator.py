@@ -62,8 +62,9 @@ def evaluate_hand(hand: list[Card]):
 #Checking other hand's rank cards
     if counts_sorted[0]==4:
         return "Four of a kind"
-    if counts_sorted[0]==3 and counts_sorted[1]==2:
-        return "Full house"
+    if len(counts_sorted)>= 2:
+        if counts_sorted[0]==3 and counts_sorted[1]==2:
+            return "Full house"
     if flush_suit:
         return "Flush"
     if straight:
