@@ -39,13 +39,12 @@ def evaluate_hand(hand: list[Card]):
     unique_ranks = sorted(unique_ranks)
 
     straight = False
-    straight_high = 0
 
     for i in range(len(unique_ranks)-4):
         seq = unique_ranks[i:i+5]
         if seq == list(range(seq[0], seq[0]+5)):
             straight = True
-            straight_high = seq[-1]
+            break
 
     #3:Straight Flush
     if flush_suit:
@@ -64,18 +63,18 @@ def evaluate_hand(hand: list[Card]):
 
 #Checking other hand's rank cards
     if counts_sorted[0]==4:
-        return "Four of a kind"
+        return "Four of a Kind"
     if len(counts_sorted) >= 2 and counts_sorted[0] == 3 and counts_sorted[1] == 2:
-        return "Full house"
+        return "Full House"
     if flush_suit:
         return "Flush"
     if straight:
         return "Straight"
     if counts_sorted[0]==3:
-        return "Three of a kind"
+        return "Three of a Kind"
     if counts_sorted[0]==2 and counts_sorted[1]==2:
-        return "Two pair"
+        return "Two Pair"
     if counts_sorted[0]==2:
         return "One Pair"
 
-    return "High card"
+    return "High Card"
