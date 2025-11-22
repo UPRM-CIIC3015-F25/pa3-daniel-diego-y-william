@@ -109,9 +109,9 @@ class ShopState(State):
             "Four of a Kind": {"chips": 80, "multiplier": 7, "level": 1},
             "Straight Flush": {"chips": 100, "multiplier": 8, "level": 1},
         }
-        keys = HAND_SCORES.keys()
-        for key in HAND_SCORES:
-            if key in planet.description:
+        # keys = HAND_SCORES.keys()
+        # for key in HAND_SCORES:
+        #     if key in planet.description:
 
     # ---------- Helpers ----------
     def _wrap_lines(self, text, font, max_width):

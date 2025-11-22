@@ -70,4 +70,3 @@ if __name__ == "__main__":
 
         curScreen.update()
         pygame.display.update()
-         
