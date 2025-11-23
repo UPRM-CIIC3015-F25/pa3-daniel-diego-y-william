@@ -90,19 +90,19 @@ class LevelSelectState(State):
                 #   on which boss is active.
                 #   Finally, make sure to reset the player’s round score to 0 at the end of this setup.
                 #   Avoid unnecessary repetition—use clear condition structure to make the logic readable.
-                blind = lm.curSubLevel.blindType
+                blind = lm.curSubLevel.blind.name
                 #Small
                 if blind == "SMALL":
-                    self.playerInfo.handLimit = 5
-                    self.playerInfo.discardLimit = 3
+                    self.playerInfo.amountOfHands = 5
+                    self.playerInfo.amountOfDiscards = 3
                 #Big
                 elif blind == "BIG":
-                    self.playerInfo.handLimit = 5
-                    self.playerInfo.discardLimit = 1
+                    self.playerInfo.amountOfHands = 5
+                    self.playerInfo.amountOfDiscards = 1
                 #Boss
                 elif blind == "BOSS":
-                    self.playerInfo.handLimit = 4
-                    self.playerInfo.discardLimit = 0
+                    self.playerInfo.amountOfHands = 4
+                    self.playerInfo.amountOfDiscards = 0
 
                 self.playerInfo.roundScore = 0
                 

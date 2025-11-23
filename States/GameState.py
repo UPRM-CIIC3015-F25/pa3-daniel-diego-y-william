@@ -542,7 +542,7 @@ class GameState(State):
 
         #stage 0
         if stage == 0:
-            blind = playerInfo.blindType
+            blind = playerInfo.levelManager.curSubLevel.blind.name
 
             if blind == "SMALL":
                 base = 4
@@ -554,11 +554,11 @@ class GameState(State):
                 base = 0
 
             playerInfo._reward_temp = base
-            return self.calculate_gold_reward(playerInfo, stage = 1)
+            return self.calculate_gold_reward(playerInfo,stage= 1)
         #Stage 1
         if stage == 1:
-            score = playerInfo.score
-            target = playerInfo.targetScore
+            score = playerInfo.roundScore
+            target = playerInfo.levelManager.curSubLevel.score
             if score <= target:
                 bonus = 0
             else:
