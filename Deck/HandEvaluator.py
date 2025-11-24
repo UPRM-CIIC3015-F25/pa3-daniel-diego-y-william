@@ -72,7 +72,7 @@ def evaluate_hand(hand: list[Card]):
         return "Straight"
     if counts_sorted[0]==3:
         return "Three of a Kind"
-    if counts_sorted[0]==2 and counts_sorted[1]==2:
+    if len(counts_sorted) > 1 and counts_sorted[0] == 2 and counts_sorted[1] == 2:
         return "Two Pair"
     if counts_sorted[0]==2:
         return "One Pair"
