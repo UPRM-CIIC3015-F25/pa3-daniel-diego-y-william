@@ -91,25 +91,41 @@ class LevelSelectState(State):
                 #   Finally, make sure to reset the player’s round score to 0 at the end of this setup.
                 #   Avoid unnecessary repetition—use clear condition structure to make the logic readable.
                 blind = lm.curSubLevel.blind.name
+                boss = lm.curSubLevel.bossLevel
+
+                hands = 5
+                discards = 3
+
                 #Small
                 if blind == "SMALL":
-                    self.playerInfo.amountOfHands = 5
-                    self.playerInfo.amountOfDiscards = 3
+                    hands = 5
+                    discards = 3
                 #Big
                 elif blind == "BIG":
-                    self.playerInfo.amountOfHands = 5
-                    self.playerInfo.amountOfDiscards = 1
+                    hands = 5
+                    discards = 1
                 #Boss
                 elif blind == "BOSS":
-                    self.playerInfo.amountOfHands = 4
-                    self.playerInfo.amountOfDiscards = 0
+                    hands = 4
+                    discards = 1
+                    if boss == "The Needle":
+                        hands = 1
+                    elif boss == "The Water":
+                        discards = 0
+                    elif boss == "The Manacle":
+                        hands -= 1
+                    elif boss == "The Hook":
+                        self.playerInfo.hookActive = True
+                    elif boss == "The Mark":
+                        self.playerInfo.markActive = True
+                    elif boss == "The House":
+                        self.playerInfo.houseActive = True
 
+                self.playerInfo.amountOfHands = hands
+                self.playerInfo.amountOfDiscards = discards
                 self.playerInfo.roundScore = 0
-                
-                # Set target score for the new sublevel
                 self.playerInfo.score = self.playerInfo.levelManager.curSubLevel.score
-                
-                # Prepare for the nextState : GameState
+
                 self.deckManager.resetDeck = True
                 self.isFinished = True
                 self.nextState = "GameState"
