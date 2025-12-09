@@ -537,6 +537,15 @@ class GameState(State):
     #     - A clear base case to stop recursion when all parts are done
     #   Avoid any for/while loops — recursion alone must handle the repetition.
     def calculate_gold_reward(self, playerInfo, stage=0):
+        if stage == 0:
+            blind = playerInfo.levelManager.curSubLevel.blind.name
+            if blind == "SMALL":
+                base = 4
+            elif blind == "BIG":
+                base = 8
+            else:
+                base = 10
+            return base + self.calculate_gold_reward(playerInfo,stage= 1)
         score = playerInfo.roundScore
         target = playerInfo.levelManager.curSubLevel.score
         if score <= target:
